@@ -1,22 +1,21 @@
 private int smallestBranch = 5; 
-private float startAngle = PI/3+0.2;
+private float startAngle = PI/3+0.3;
 private float branchAngle = startAngle;
 private boolean facingRight = false;  
 public void setup() 
 {   
-	size(800,800); 
-	stroke(0,255,0);   	   
+	size(800,800);  
 } 
 public void draw() 
 {   
 	background(0);   
-	strokeWeight(1);
+
 	drawBranches(width/2,height-250*sin(branchAngle)+100,300,branchAngle);
 	if(branchAngle>=PI-startAngle){
 		branchAngle=startAngle; //if branch angle >= pi-starting angle...
 		facingRight=!facingRight;
 	}
-	branchAngle+=0.004;
+	branchAngle+=0.003;
 		
 	//green lines
 	if(Math.random()-Math.random()<-0.8) {
@@ -30,21 +29,23 @@ public void draw()
 public void drawBranches(float x,float y, float branchLength, float angle) 
 {   
 	if(branchLength <= smallestBranch){
-		stroke(0, (facingRight?100:255), 0);
+		stroke(0, (facingRight?200:255), 0);
 		line(
 			x, y, x+branchLength*(float)cos(angle), y-branchLength*(float)sin(angle));
-		stroke(0, (!facingRight?100:255), 0);
+		stroke(0, (!facingRight?200:255), 0);
 		line(
 			x, y, x-branchLength*(float)cos(angle), y-branchLength*(float)sin(angle));
 	}
 	else{
-		stroke(0, (facingRight?100:255), 0);
+		strokeWeight(facingRight?1:2);
+		stroke(0, (facingRight?200:255), 0);
 		line(
 			x, y, x+branchLength*(float)cos(angle), y-branchLength*(float)sin(angle));
-		stroke(0, (!facingRight?100:255), 0);
+		strokeWeight(!facingRight?1:2);
+		stroke(0, (!facingRight?200:255), 0);
 		line(
 			x, y, x-branchLength*(float)cos(angle), y-branchLength*(float)sin(angle));
-		drawBranches(x-branchLength*(float)cos(angle), y-branchLength*(float)sin(angle), branchLength*0.5, angle);
-		drawBranches(x+branchLength*(float)cos(angle), y-branchLength*(float)sin(angle), branchLength*0.5, angle);
+		drawBranches(x-branchLength*(float)cos(angle), y-branchLength*(float)sin(angle), branchLength*0.51, angle);
+		drawBranches(x+branchLength*(float)cos(angle), y-branchLength*(float)sin(angle), branchLength*0.51, angle);
 	}
 } 
